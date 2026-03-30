@@ -1,0 +1,40 @@
+1: date -> date
+2: report_date -> date
+3: cooling_unit_id -> integer
+4: unit_name -> text
+5: is_unit_deleted -> boolean
+6: state -> text
+7: cool_unit_type -> text
+8: cap_tons -> double precision
+9: cap_num_crates -> integer
+10: company_id -> integer
+11: comp_name -> text
+12: comp_pricing -> text
+13: currency -> text
+14: room_op -> integer
+15: room_op_fem -> integer
+16: room_op_ma -> integer
+17: room_op_ot -> integer
+18: room_beneficiaries -> integer
+19: room_beneficiaries_fem -> integer
+20: room_beneficiaries_ma -> integer
+21: room_active_users -> integer
+22: room_active_user_ids -> text
+23: room_active_fem -> integer
+24: room_active_ma -> integer
+25: room_active_ot -> integer
+26: room_crates_in -> integer
+27: room_ops_in -> integer
+28: room_kg_in -> double precision
+29: room_crates_out -> integer
+30: room_ops_out -> integer
+31: room_kg_out -> double precision
+32: average_room_occupancy -> double precision
+33: room_revenue -> double precision
+34: room_revenue_usd -> double precision
+35: check_in_crates_crop -> jsonb
+36: check_in_kg_crop -> jsonb
+37: check_out_crates_crop -> jsonb
+38: check_out_kg_crop -> jsonb
+39: tot_co2 -> double precision
+40: co2_crops -> jsonb

@@ -1,0 +1,2 @@
+Company Manamuz Coldbox (id=1) has 76 crops
+Company Manamuz Coldroom (id=2) has 76 crops

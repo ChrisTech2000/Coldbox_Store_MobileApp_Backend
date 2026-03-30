@@ -1,0 +1,4 @@
+CoolingUnitCrop total=76 active=76 inactive=0
+
+Company id=1 name=Manamuz Coldbox crops_count=0 crops=[]
+Company id=2 name=Manamuz Coldroom crops_count=0 crops=[]

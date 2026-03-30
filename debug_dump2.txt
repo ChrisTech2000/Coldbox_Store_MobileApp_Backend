@@ -1,0 +1,30 @@
+--- FARMER SURVEY RAW DATA ---
+average_price	kg_in_unit	quantity_sold	quantity_self_consumed	quantity_total	quantity_below_market_price	currency	crop
+5000	25	28.0	10.0	40.0	2.0	NGN	Banana
+6000	25	38.0	2.0	50.0	10.0	NGN	Capsicum (Bell Pepper)
+None	25	15.0	2.0	20.0	3.0	NGN	Cabbage
+5000	25	38.0	2.0	50.0	10.0	NGN	Cucumber
+7700	25	60.0	5.0	70.0	5.0	NGN	Brinjal (Aubergine)
+
+--- market survey raw data ---
+price	kg_in_unit	currency	crop_name	date_filled_in
+6500.0	25	NGN	Capsicum (Bell Pepper)	2026-02-27 09:21:14.796578+00:00
+7000.0	25	NGN	Bitter Leaf	2026-02-27 09:22:33.556473+00:00
+3500.0	25	NGN	Avocado	2026-02-27 09:26:09.651495+00:00
+2700.0	25	NGN	African star apple	2026-02-27 09:28:55.764853+00:00
+
+--- WHAT checkouts have market surveys?
+checkout_id	survey_id	price	kg_in_unit	checkout_date
+1	None	None	None	2026-02-24 10:19:31.281137+00:00
+2	None	None	None	2026-02-24 16:09:43.731011+00:00
+3	4	2700.0	25	2026-02-24 16:13:22.881722+00:00
+4	3	3500.0	25	2026-02-27 07:32:53.703279+00:00
+5	2	7000.0	25	2026-02-27 08:01:36.736149+00:00
+6	1	6500.0	25	2026-02-27 08:41:14.526949+00:00
+
+--- CHECKOUT WEIGHT DATA ---
+ERROR: column sc.loss does not exist
+LINE 2:         SELECT sc.id, sc.weight, sc.loss, oc.id as checkout_...
+                                         ^
+
+

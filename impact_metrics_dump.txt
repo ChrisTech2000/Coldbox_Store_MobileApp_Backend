@@ -1,0 +1,9 @@
+report_date	cooling_unit_id	farmer_id	crop_name	baseline_rev	current_rev	baseline_loss	current_loss	baseline_price	current_price
+2026-03-01	1	2	African star apple	-1875000.00	-3240.00	160.00	30.00	62500.00	108.00
+2026-03-01	1	2	Avocado	-450000.00	-840.00	20.00	6.00	75000.00	140.00
+2026-03-01	1	2	Bitter Leaf	-100000.00	-560.00	4.00	2.00	50000.00	280.00
+2026-03-01	1	2	Capsicum (Bell Pepper)	0.00	0.00	40.00	0.00	150000.00	260.00
+
+--- CO2 data rows with tot_co2 > 0: 127, Max date: 0003-11-30
+
+--- Total checkouts: 17, With market surveys: 14

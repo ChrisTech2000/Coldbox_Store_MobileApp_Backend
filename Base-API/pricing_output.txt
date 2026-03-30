@@ -1,0 +1,77 @@
+CU id=1 name=Ezeagu 
+  Crop: Others | No pricing set
+  Crop: Dairy | No pricing set
+  Crop: Flowers | No pricing set
+  Crop: Fish | No pricing set
+  Crop: Meat | No pricing set
+  Crop: Sweet Potato | No pricing set
+  Crop: Waterleaf | No pricing set
+  Crop: Lemon basil | No pricing set
+  Crop: African star apple | No pricing set
+  Crop: Avocado | No pricing set
+  Crop: Bitter Leaf | No pricing set
+  Crop: Fluted pumpkin (leaves) | No pricing set
+  Crop: Jute leaves | No pricing set
+  Crop: Oha/Ora Leaf | No pricing set
+  Crop: Roselle | No pricing set
+  Crop: Scent leaf | No pricing set
+  Crop: Other | No pricing set
+  Crop: Other | No pricing set
+  Crop: Other | No pricing set
+  Crop: Water Melon | No pricing set
+  Crop: Tomato | No pricing set
+  Crop: Taro root | No pricing set
+  Crop: Sweet Lime | No pricing set
+  Crop: Strawberry | No pricing set
+  Crop: Spring onion | No pricing set
+  Crop: Spinach | No pricing set
+  Crop: Ridge Gourd | No pricing set
+  Crop: Radish | No pricing set
+  Crop: Pumpkin | No pricing set
+  Crop: Irish Potato | No pricing set
+  Crop: Pomegranate | No pricing set
+  Crop: Pointed Gourd | No pricing set
+  Crop: Plantain | No pricing set
+  Crop: Pineapple | No pricing set
+  Crop: Peas | No pricing set
+  Crop: Pear | No pricing set
+  Crop: Peach | No pricing set
+  Crop: Papaya | No pricing set
+  Crop: Orange | No pricing set
+  Crop: Onion | No pricing set
+  Crop: Ladyfinger | No pricing set
+  Crop: Mushroom | No pricing set
+  Crop: Methi | No pricing set
+  Crop: Mint leaves | No pricing set
+  Crop: Musk Melon | No pricing set
+  Crop: Mango | No pricing set
+  Crop: Litchi | No pricing set
+  Crop: Lettuce | No pricing set
+  Crop: Lemon | No pricing set
+  Crop: Jackfruit | No pricing set
+  Crop: Ivy Gourd | No pricing set
+  Crop: Guava | No pricing set
+  Crop: Green Gram | No pricing set
+  Crop: Green Chilli | No pricing set
+  Crop: Grapes | No pricing set
+  Crop: Ginger | No pricing set
+  Crop: Garlic | No pricing set
+  Crop: Flat Beans | No pricing set
+  Crop: Brinjal (Aubergine) | No pricing set
+  Crop: Drum stick | No pricing set
+  Crop: Cucumber | No pricing set
+  Crop: Coriander | No pricing set
+  Crop: Colacasia | No pricing set
+  Crop: Bathua (Chenopodium) | No pricing set
+  Crop: Cauliflower | No pricing set
+  Crop: Tapioca (Cassava) | No pricing set
+  Crop: Carrot | No pricing set
+  Crop: Cabbage | No pricing set
+  Crop: Broccoli | No pricing set
+  Crop: Bottle Gourd | No pricing set
+  Crop: Bitter Gourd | No pricing set
+  Crop: Capsicum (Bell Pepper) | No pricing set
+  Crop: Beetroot | No pricing set
+  Crop: Beans | No pricing set
+  Crop: Banana | No pricing set
+  Crop: Apple | No pricing set

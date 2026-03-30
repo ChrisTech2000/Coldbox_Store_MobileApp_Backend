@@ -1,0 +1,305 @@
+import uuid
+
+import phonenumbers
+from django.db.transaction import atomic
+from django.utils.translation import gettext_lazy as _
+from rest_framework import serializers
+
+from base.apps.storage.models import CoolingUnit
+from base.apps.user.models import Operator, ServiceProvider, User
+
+# Field constants
+MIN_PASSWORD_LENGTH = 8
+UUID_USERNAME_LENGTH = 30
+
+# Request field names
+COOLING_UNITS_FIELD = "cooling_units"
+
+# Response field names
+PHONE_FIELD = "phone"
+EMAIL_FIELD = "email"
+
+# Default values
+DEFAULT_NONE = None
+
+
+def normalize_phone_number(phone: str) -> str:
+    """
+    Normalizes a phone number to E.164 format.
+    Handles the common case where a country code is prepended to a local
+    number that still has its leading zero (e.g. +2340801234567 → +2348012345678).
+    """
+    if not phone:
+        return phone
+    try:
+        # First try parsing as-is
+        parsed = phonenumbers.parse(phone, None)
+        if phonenumbers.is_valid_number(parsed):
+            return phonenumbers.format_number(parsed, phonenumbers.PhoneNumberFormat.E164)
+    except phonenumbers.NumberParseException:
+        pass
+
+    # If it starts with + and the local part starts with 0, strip the 0 and retry
+    if phone.startswith('+') and len(phone) > 4:
+        # Find where the country code ends by trying to parse known prefixes
+        for cc_len in (4, 3, 2):  # try +XXX, +XX, +X
+            cc = phone[1:cc_len]
+            local = phone[cc_len:]
+            if local.startswith('0'):
+                candidate = f"+{cc}{local[1:]}"
+                try:
+                    parsed = phonenumbers.parse(candidate, None)
+                    if phonenumbers.is_valid_number(parsed):
+                        return phonenumbers.format_number(parsed, phonenumbers.PhoneNumberFormat.E164)
+                except phonenumbers.NumberParseException:
+                    continue
+
+    return phone  # return as-is; PhoneNumberField will reject if still invalid
+
+
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(min_length=MIN_PASSWORD_LENGTH, write_only=True)
+    # Override as CharField so we can normalize before PhoneNumberField rejects it
+    phone = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "username",
+            "phone",
+            "email",
+            "gender",
+            "password",
+            "first_name",
+            "last_name",
+            "last_login",
+            "language",
+            "is_email_public",
+            "is_phone_public",
+        )
+        extra_kwargs = {
+            "password": {"write_only": True},
+            "username": {"read_only": True},
+        }
+
+    def validate_phone(self, value):
+        """Normalize and validate phone number before it hits the model field."""
+        if not value or value.strip() == '':
+            return None
+        normalized = normalize_phone_number(value.strip())
+        # Validate the normalized number
+        try:
+            parsed = phonenumbers.parse(normalized, None)
+            if not phonenumbers.is_valid_number(parsed):
+                raise serializers.ValidationError(_("The phone number entered is not valid."))
+        except phonenumbers.NumberParseException:
+            raise serializers.ValidationError(_("The phone number entered is not valid."))
+        return normalized
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        request = self.context.get("request")
+
+        if not request:
+            return data
+
+        user = request.user
+
+        # Handle phone and email visibility (keep existing logic)
+        self._handle_contact_info_visibility(data, instance, user)
+        
+        # Handle PII fields visibility (new logic)
+        self._handle_pii_visibility(data, instance, user)
+
+        return data
+
+    def _handle_contact_info_visibility(self, data, instance, user):
+        """Handle phone and email visibility based on existing logic"""
+        if not instance.is_phone_public and not instance.is_email_public:
+            # Skip visibility logic for anonymous users (e.g., during signup)
+            if not user.is_authenticated:
+                return
+                
+            # Check if it's the user's own profile
+            if instance == user:
+                return
+
+            # Skip visibility logic for anonymous users (e.g., during signup)
+            if not user.is_authenticated:
+                return
+
+            # Check Operator, Employee, or Farmer logic
+            operator = Operator.objects.filter(user=user).first()
+            employee = ServiceProvider.objects.filter(user=user).first()
+            farmer = getattr(user, "farmer", None)
+            
+            company_id = None
+            if operator:
+                company_id = operator.company_id
+            elif employee:
+                company_id = employee.company_id
+            elif farmer:
+                # For farmers, get any company they belong to (take first one)
+                company_id = farmer.companies.first().id if farmer.companies.exists() else None
+
+            if company_id:
+                # Check if the target user belongs to the same company
+                target_farmer = getattr(instance, "farmer", None)
+                target_operator = Operator.objects.filter(user=instance).first()
+                
+                has_company_access = False
+                if target_farmer:
+                    has_company_access = target_farmer.companies.filter(id=company_id).exists()
+                elif target_operator:
+                    has_company_access = target_operator.company_id == company_id
+                
+                if not has_company_access:
+                    data.pop("phone", None)
+                    data.pop("email", None)
+            else:
+                data.pop("phone", None)
+                data.pop("email", None)
+        else:
+            if not instance.is_phone_public:
+                data.pop("phone", None)
+            if not instance.is_email_public:
+                data.pop("email", None)
+
+    def _handle_pii_visibility(self, data, instance, user):
+        """Handle PII fields visibility (gender, language, last_login)"""
+        # Skip visibility logic for anonymous users (e.g., during signup)
+        if not user.is_authenticated:
+            return
+            
+        # Always allow users to see their own PII
+        if instance == user:
+            return
+
+        # Check if the viewing user can see PII (including last_login for operators)
+        if not self._can_view_pii(instance, user):
+            data.pop("gender", None)
+            data.pop("language", None)
+            data.pop("last_login", None)
+        else:
+            # Can view PII, but check specific rules for last_login
+            if not self._can_view_last_login(instance, user):
+                data.pop("last_login", None)
+
+    def _can_view_pii(self, instance, viewing_user):
+        """
+        Determine if viewing_user can see PII of instance based on company relationships
+        Rules:
+        - Farmer: Visible to operators/employees from same company
+        - Employee (ServiceProvider): Only visible to themselves (already handled above)
+        - Operator: Visible to employees from same company
+        """
+        # Anonymous users cannot view PII
+        if not viewing_user or viewing_user.is_anonymous:
+            return False
+            
+        # Get the roles of the viewing user
+        viewing_operator = Operator.objects.filter(user=viewing_user).first()
+        viewing_employee = ServiceProvider.objects.filter(user=viewing_user).first()
+
+        if not (viewing_operator or viewing_employee):
+            # Viewing user has no operator/employee role
+            return False
+
+        viewing_company_id = (
+            viewing_operator.company_id if viewing_operator
+            else viewing_employee.company_id if viewing_employee
+            else None
+        )
+
+        if not viewing_company_id:
+            return False
+
+        # Check the target instance's role
+        target_farmer = getattr(instance, "farmer", None)
+        target_operator = Operator.objects.filter(user=instance).first()
+
+        # If target is a farmer, operators/employees from same company can see PII
+        if target_farmer:
+            return target_farmer.companies.filter(id=viewing_company_id).exists()
+
+        # If target is an operator, only employees from same company can see PII
+        if target_operator and viewing_employee:
+            return target_operator.company_id == viewing_company_id
+
+        # If target is an employee, no one else can see their PII (handled above)
+        return False
+
+    def _can_view_last_login(self, instance, viewing_user):
+        """
+        Determine if viewing_user can see last_login of instance
+        Rules:
+        - ServiceProviders (REs) can see last_login of operators from the same company
+        - All other cases follow general PII rules
+        """
+        # Anonymous users cannot view last_login
+        if not viewing_user or viewing_user.is_anonymous:
+            return False
+        
+        # Get the roles of the viewing user
+        viewing_employee = ServiceProvider.objects.filter(user=viewing_user).first()
+        
+        if viewing_employee:
+            # ServiceProvider (RE) viewing someone
+            target_operator = Operator.objects.filter(user=instance).first()
+            
+            # RE can see operator's last_login if they're from the same company
+            if target_operator and target_operator.company_id == viewing_employee.company_id:
+                return True
+        
+        # For all other cases, return False (last_login not visible)
+        return False
+
+    @atomic
+    def create(self, validated_data):
+        password = validated_data.pop("password", None)
+        instance = self.Meta.model(**validated_data)
+        if password is not None:
+            instance.set_password(password)
+        instance.username = uuid.uuid4().hex[:UUID_USERNAME_LENGTH]
+        instance.save()
+        return instance
+
+    def update(self, instance, validated_data):
+        # get the cooling units sent with the user
+        cooling_units = self.context["request"].data[COOLING_UNITS_FIELD]
+
+        if cooling_units != DEFAULT_NONE:
+            # get the cooling units the operator is assigned to already
+            operator_cooling_units = CoolingUnit.objects.filter(
+                operators=instance
+            ).values("id")
+
+            # if one of the cooling unit sent with the request is not already assigned to the op, assign op to it
+            for cu in cooling_units:
+                try:
+                    cooling_unit = CoolingUnit.objects.get(id=cu)
+                    if instance not in cooling_unit.operators.all():
+                        cooling_unit.operators.add(instance.id)
+                except CoolingUnit.DoesNotExist:
+                    continue
+
+            # if a cooling unit assigned to the op is not part of the cooling units sent in the request, remove op from it
+            for op_cu in operator_cooling_units:
+                if op_cu["id"] not in cooling_units:
+                    try:
+                        CoolingUnit.objects.get(id=op_cu["id"]).operators.remove(
+                            instance.id
+                        )
+                    except CoolingUnit.DoesNotExist:
+                        continue
+
+        return super().update(instance, validated_data)
+
+
+class PublicUserSerializer(UserSerializer):
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["phone"] = str(instance.phone) if instance.phone else None
+        data["email"] = str(instance.email) if instance.email else None
+        return data

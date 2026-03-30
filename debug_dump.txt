@@ -1,0 +1,26 @@
+--- IMPACT METRICS SAMPLE ---
+crop_name	baseline_price_per_kg	current_price_per_kg	baseline_total_kg	baseline_loss_kg	current_checkin_kg	current_loss_kg	baseline_revenue	current_revenue	baseline_loss_pct	current_loss_pct
+African star apple	62500.0000	108.0000	600.00	160.00	0.00	30.00	-1875000.00	-3240.00	26.67	0.00
+Avocado	75000.0000	140.0000	400.00	20.00	0.00	6.00	-450000.00	-840.00	5.00	0.00
+Bitter Leaf	50000.0000	280.0000	80.00	4.00	0.00	2.00	-100000.00	-560.00	5.00	0.00
+
+--- CO2 DATA SUMMARY ---
+total_rows	with_co2	max_date
+845	151	0004-01-22
+
+--- MARKET SURVEYS EXIST ---
+market_surveys_count
+4
+
+--- CHECKOUT SURVEY COUNT ---
+checkouts	market_surveys
+6	4
+
+--- BASELINE SURVEY DATA ---
+farmer_id	crop	avg_price	qty_sold	qty_lost	qty_total
+2	African star apple	2500.0000000000000000	400.0	160.0	600.0
+2	Avocado	3000.0000000000000000	360.0	20.0	400.0
+2	Banana	5000.0000000000000000	112.0	8.0	160.0
+2	Bitter Leaf	2000.0000000000000000	72.0	4.0	80.0
+2	Brinjal (Aubergine)	7700.0000000000000000	240.0	20.0	280.0
+
