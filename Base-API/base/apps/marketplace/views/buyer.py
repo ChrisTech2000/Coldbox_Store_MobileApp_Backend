@@ -194,7 +194,7 @@ class BuyerAvailableMarketListingViewSet(ViewSet):
         # Serialize the paginated results.
         response_data = {
             "pagination": PaginationSerializer(page).data,
-            "nodes": MarketListedCrateSerializer(page, many=True).data,
+            "nodes": MarketListedCrateSerializer(page, many=True, context={'request': request}).data,
         }
         return Response(response_data, status=HTTP_200_OK)
 

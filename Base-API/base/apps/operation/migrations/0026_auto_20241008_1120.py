@@ -20,6 +20,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='checkout',
             name='payment_type',
-            field=models.CharField(blank=True, choices=[('CASH', 'Cash'), ('CREDIT_CARD', 'Credit card'), ('UPI', 'UPI'), ('BANK', 'Bank'), ('COLDTIVATE', 'Coldtivate')], default=None, max_length=20, null=True),
+            field=models.CharField(blank=True, choices=[('CASH', 'Cash'), ('CREDIT_CARD', 'Credit card'), ('UPI', 'UPI'), ('BANK', 'Bank'), ('Coldbox Store', 'Coldbox Store')], default=None, max_length=20, null=True),
         ),
     ]

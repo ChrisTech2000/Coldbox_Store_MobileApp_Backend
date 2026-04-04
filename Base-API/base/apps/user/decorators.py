@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 # from rest_framework.exceptions import PermissionDenied
 
-def coldtivate_authenticated_user(view_func):
+def Coldbox Store_authenticated_user(view_func):
     def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_authenticated:
             # raise PermissionDenied({'error': 'Unauthorized' })

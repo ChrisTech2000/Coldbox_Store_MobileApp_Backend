@@ -16,6 +16,9 @@ SUCCESS_SMS_SENT = "SMS sent to {phone}"
 
 @app.task
 def send_sms_checkout_movement_report(checkout_id, user_id):
+    # DISABLED: Bypassing SMS to save on Twilio API costs
+    return "SMS disabled to save Twilio costs"
+    
     try:
         # Fetch the order and user details
         checkout = Checkout.objects.get(id=checkout_id)

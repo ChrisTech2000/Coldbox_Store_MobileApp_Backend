@@ -106,9 +106,9 @@ class SellerOrderSerializer(serializers.ModelSerializer):
         help_text="Total amount the buyer paid"
     )
     platform_commission = serializers.FloatField(
-        source='cmp_total_coldtivate_amount',
+        source='cmp_total_Coldbox Store_amount',
         read_only=True,
-        help_text="Platform commission (Coldtivate fee)"
+        help_text="Platform commission (Coldbox Store fee)"
     )
     payment_fees = serializers.FloatField(
         source='cmp_total_payment_fees_amount',

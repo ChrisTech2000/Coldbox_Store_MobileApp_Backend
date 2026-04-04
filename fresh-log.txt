@@ -1,0 +1,40 @@
+  from pkg_resources import DistributionNotFound, get_distribution
+/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework_simplejwt/__init__.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import DistributionNotFound, get_distribution
+Internal Server Error: /operation/checkins/
+Traceback (most recent call last):
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/base/apps/operation/views/checkin.py", line 82, in create
+    serializer.save()
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/serializers.py", line 212, in save
+    self.instance = self.create(validated_data)
+  File "/usr/local/lib/python3.9/contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "/app/base/apps/operation/serializers/checkin.py", line 38, in create
+    handle_produces_for_checkin(checkin_instance, produces_payload, operator)
+  File "/usr/local/lib/python3.9/contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "/app/base/apps/operation/services/checkin.py", line 59, in handle_produces_for_checkin
+    produce_instance = Produce.objects.create(
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/django/db/models/query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/django/db/models/base.py", line 503, in __init__
+    raise TypeError("%s() got an unexpected keyword argument '%s'" % (cls.__name__, kwarg))
+TypeError: Produce() got an unexpected keyword argument 'total_listed_weight'

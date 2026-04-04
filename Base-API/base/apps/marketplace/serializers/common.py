@@ -113,6 +113,7 @@ class MarketListedCrateSerializer(serializers.ModelSerializer):
     # Custom fields computed in this serializer
     distance = serializers.SerializerMethodField()
     produce_price_per_kg = serializers.SerializerMethodField()
+    picture = serializers.SerializerMethodField()
 
     class Meta:
         model = MarketListedCrate
@@ -164,6 +165,19 @@ class MarketListedCrateSerializer(serializers.ModelSerializer):
         Returns the distance value if it exists and is greater than zero; otherwise, returns None.
         """
         return getattr(obj, 'distance', None) if hasattr(obj, 'distance') and obj.distance > 0 else None
+
+    def get_picture(self, obj):
+        """
+        Returns the full absolute URL for the picture field so the mobile app
+        can load images without having to guess the media prefix.
+        """
+        if not obj.picture:
+            return None
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(obj.picture.url)
+        # Fallback: return the bare media-relative URL
+        return obj.picture.url
 
 
 class PaystackAccountSerializer(serializers.ModelSerializer):

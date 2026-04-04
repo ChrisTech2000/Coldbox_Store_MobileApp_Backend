@@ -21,11 +21,11 @@ SPLIT_CURRENCY_NGN = "NGN"
 SPLIT_BEARER_TYPE_ACCOUNT = "account"
 
 # Email domain suffixes
-COMPANY_EMAIL_DOMAIN = "@company.coldtivate.org"
-USER_EMAIL_DOMAIN = "@user.coldtivate.org"
+COMPANY_EMAIL_DOMAIN = "@company.Coldbox Store.org"
+USER_EMAIL_DOMAIN = "@user.Coldbox Store.org"
 
 # Callback URLs
-BASE_APP_URL = "https://in-app.coldtivate.org"
+BASE_APP_URL = "https://in-app.Coldbox Store.org"
 PAYMENT_CALLBACK_URL_TEMPLATE = f"{BASE_APP_URL}/order/{{order_id}}/payment/callback"
 PAYMENT_CANCEL_URL_TEMPLATE = f"{BASE_APP_URL}/order/{{order_id}}/payment/cancel"
 
@@ -146,7 +146,7 @@ def set_the_order_as_pending_payment(order: Order) -> None:
     # Check if the total amount of splits is equal to the order amount
     total_splits_amount = sum(split['amount'] for split in splits)
     total_order_amount = float_to_flat_int(
-        order.cmp_total_amount - order.cmp_total_coldtivate_amount - order.cmp_total_payment_fees_amount,
+        order.cmp_total_amount - order.cmp_total_Coldbox Store_amount - order.cmp_total_payment_fees_amount,
         currency
     )
 

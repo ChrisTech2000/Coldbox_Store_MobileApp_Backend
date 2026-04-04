@@ -52,10 +52,11 @@ def handle_produces_for_checkin(checkin, produces_payload, operator):
 
         crates_data = produce_data.pop("crates")
 
-        # Optional picture value
+        # Remove marketplace/frontend-only fields not present on the Produce model
+        produce_data.pop("picture", None)
+        produce_data.pop("total_listed_weight", None)
+        produce_data.pop("price", None)
         picture = None
-        if has_picture:
-            picture = produce_data.get("picture")
 
         produce_instance = Produce.objects.create(
             crop=crop,

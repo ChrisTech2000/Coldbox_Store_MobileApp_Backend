@@ -12,7 +12,7 @@ def checkout__set_payment_fields(apps, schema_editor):
     Checkout = apps.get_model('operation', 'Checkout')
     Movement = apps.get_model('operation', 'Movement')
 
-    # set 'DIRECT' to all checkouts (will overwrite with 'COLDTIVATE' later)
+    # set 'DIRECT' to all checkouts (will overwrite with 'Coldbox Store' later)
     Checkout.objects.all().update(payment_through='DIRECT')
 
     # Payment methods
@@ -37,7 +37,7 @@ def checkout__set_payment_fields(apps, schema_editor):
     ).update(
         payment_gateway='PAYTACK',
         payment_method='CREDIT_CARD',
-        payment_through='COLDTIVATE'
+        payment_through='Coldbox Store'
     )
 
 
@@ -88,7 +88,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='checkout',
             name='payment_through',
-            field=models.CharField(blank=True, choices=[('DIRECT', 'Direct'), ('COLDTIVATE', 'Coldtivate app')], default=None, max_length=20, null=True),
+            field=models.CharField(blank=True, choices=[('DIRECT', 'Direct'), ('Coldbox Store', 'Coldbox Store app')], default=None, max_length=20, null=True),
         ),
         migrations.RunPython(checkout__set_payment_fields, reverse_code=migrations.RunPython.noop),
 

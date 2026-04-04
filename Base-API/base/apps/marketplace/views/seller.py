@@ -104,7 +104,7 @@ class SellerListedCratesViewSet(ViewSet):
 
         # Prepare response data (pagination might be added later)
         return Response({
-            'nodes': MarketListedCrateSerializer(queryset, many=True).data
+            'nodes': MarketListedCrateSerializer(queryset, many=True, context={'request': request}).data
         }, status=HTTP_200_OK)
 
     def retrieve(self, request, crate_id=None):
@@ -119,7 +119,7 @@ class SellerListedCratesViewSet(ViewSet):
             delisted_at__isnull=True,
             **self.get_queryset_filter_kwargs()
         )
-        serializer = MarketListedCrateSerializer(listing)
+        serializer = MarketListedCrateSerializer(listing, context={'request': request})
         return Response(serializer.data, status=HTTP_200_OK)
 
     @transaction.atomic
@@ -243,7 +243,7 @@ class SellerListedCratesViewSet(ViewSet):
                         args=[ids, user['user_id']]
                     )
 
-        serializer = MarketListedCrateSerializer(listings, many=True)
+        serializer = MarketListedCrateSerializer(listings, many=True, context={'request': request})
         return Response(serializer.data, status=HTTP_200_OK)
 
     @transaction.atomic

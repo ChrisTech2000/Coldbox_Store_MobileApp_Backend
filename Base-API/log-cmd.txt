@@ -1,0 +1,100 @@
+    handle_produces_for_checkin(checkin_instance, produces_payload, operator)
+  File "/usr/local/lib/python3.9/contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "/app/base/apps/operation/services/checkin.py", line 60, in handle_produces_for_checkin
+    produce_instance = Produce.objects.create(
+TypeError: django.db.models.manager.BaseManager._get_queryset_methods.<locals>.create_method.<locals>.manager_method() got multiple values for keyword argument 'picture'
+Not Found: /media/crop_images/broccoli1.png
+Not Found: /media/crop_images/beetroot.png
+Not Found: /media/crop_images/BitterLeaf.png
+Not Found: /media/crop_images/bitterGourd.png
+Not Found: /media/crop_images/bellPepper.png
+Not Found: /media/crop_images/cabbage.png
+Not Found: /media/crop_images/cauliflower_dVI5dHi.jpg
+Not Found: /media/crop_images/bottleGourd.png
+Not Found: /media/crop_images/beans.png
+Not Found: /media/crop_images/carrot.png
+Not Found: /media/crop_images/bellPepper.png
+Not Found: /media/crop_images/BitterLeaf.png
+Not Found: /media/crop_images/Screenshot_2022-07-27_at_17.38.06.png
+Not Found: /media/crop_images/flatBeans.png
+Not Found: /media/crop_images/cucumber.png
+Not Found: /media/crop_images/cocoyam.png
+Not Found: /media/crop_images/taro-root.png
+Not Found: /media/crop_images/Jute_GTIG44R.png
+Not Found: /media/crop_images/cabbage.png
+Not Found: /media/crop_images/coriander.png
+Not Found: /media/crop_images/cassava.png
+Internal Server Error: /operation/checkins/
+Traceback (most recent call last):
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/base/apps/operation/views/checkin.py", line 82, in create
+    serializer.save()
+  File "/root/.local/share/virtualenvs/app-4PlAip0Q/lib/python3.9/site-packages/rest_framework/serializers.py", line 212, in save
+    self.instance = self.create(validated_data)
+  File "/usr/local/lib/python3.9/contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "/app/base/apps/operation/serializers/checkin.py", line 38, in create
+    handle_produces_for_checkin(checkin_instance, produces_payload, operator)
+  File "/usr/local/lib/python3.9/contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "/app/base/apps/operation/services/checkin.py", line 60, in handle_produces_for_checkin
+    produce_instance = Produce.objects.create(
+TypeError: django.db.models.manager.BaseManager._get_queryset_methods.<locals>.create_method.<locals>.manager_method() got multiple values for keyword argument 'picture'
+Not Found: /media/crop_images/broccoli1.png
+Not Found: /media/crop_images/beetroot.png
+Not Found: /media/crop_images/BitterLeaf.png
+Not Found: /media/crop_images/bellPepper.png
+Not Found: /media/crop_images/bitterGourd.png
+Not Found: /media/crop_images/bottleGourd.png
+Not Found: /media/crop_images/beans.png
+Not Found: /media/crop_images/cauliflower_dVI5dHi.jpg
+Not Found: /media/crop_images/bellPepper.png
+Not Found: /media/crop_images/cabbage.png
+Not Found: /media/crop_images/carrot.png
+Not Found: /media/crop_images/Screenshot_2022-07-27_at_17.38.06.png
+Not Found: /media/crop_images/BitterLeaf.png
+Not Found: /media/crop_images/cocoyam.png
+Not Found: /media/crop_images/flatBeans.png
+Not Found: /media/crop_images/taro-root.png
+Not Found: /media/crop_images/cucumber.png
+Not Found: /media/crop_images/cassava.png
+Not Found: /media/crop_images/Jute_GTIG44R.png
+Not Found: /media/crop_images/cabbage.png
+Not Found: /media/crop_images/coriander.png
+Not Found: /media/crop_images/BitterLeaf.png
+Not Found: /media/crop_images/broccoli1.png
+Not Found: /media/crop_images/bellPepper.png
+Not Found: /media/crop_images/beetroot.png
+Not Found: /media/crop_images/bitterGourd.png
+Not Found: /media/crop_images/beans.png
+Not Found: /media/crop_images/cabbage.png
+Not Found: /media/crop_images/cauliflower_dVI5dHi.jpg
+Not Found: /media/crop_images/BitterLeaf.png
+Not Found: /media/crop_images/bellPepper.png
+Not Found: /media/crop_images/carrot.png
+Not Found: /media/crop_images/bottleGourd.png
+Not Found: /media/crop_images/Screenshot_2022-07-27_at_17.38.06.png
+Not Found: /media/crop_images/flatBeans.png
+Not Found: /media/crop_images/cocoyam.png
+Not Found: /media/crop_images/cucumber.png
+Not Found: /media/crop_images/cabbage.png
+Not Found: /media/crop_images/taro-root.png
+Not Found: /media/crop_images/Jute_GTIG44R.png
+Not Found: /media/crop_images/coriander.png
+Not Found: /media/crop_images/cassava.png

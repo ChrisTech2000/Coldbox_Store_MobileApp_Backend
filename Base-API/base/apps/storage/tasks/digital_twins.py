@@ -168,7 +168,7 @@ def send_crate_failure_email(crate):
         f"Crate Id: {crate.id}, {crate_repr} failed to recompute.\n"
         f"Last Recompute: {last_recompute}\n\n"
         "Kind regards,\n\n"
-        "The Coldtivate team"
+        "The Coldbox Store team"
     )
 
     send_mail(subject, message, email_from, recipient_list)
