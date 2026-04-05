@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
                 ('cmp_last_updated_at', models.DateTimeField(default=timezone.now, verbose_name='cmp_last_updated_at')),
                 ('cmp_total_produce_amount', models.FloatField(default=0, verbose_name='cmp_total_produce_amount')),
                 ('cmp_total_cooling_fees_amount', models.FloatField(default=0, verbose_name='cmp_total_cooling_fees_amount')),
-                ('cmp_total_Coldbox Store_amount', models.FloatField(default=0, verbose_name='cmp_total_Coldbox Store_amount')),
+                ('cmp_total_coldboxstore_amount', models.FloatField(default=0, verbose_name='cmp_total_coldboxstore_amount')),
                 ('cmp_total_discount_amount', models.FloatField(default=0, verbose_name='cmp_total_discount_amount')),
                 ('cmp_total_payment_fees_amount', models.FloatField(default=0, verbose_name='cmp_total_payment_fees_amount')),
                 ('cmp_total_amount', models.FloatField(default=0, verbose_name='cmp_total_amount')),

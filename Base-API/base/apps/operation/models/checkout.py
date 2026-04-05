@@ -13,7 +13,7 @@ PAYMENT_FIELD_MAX_LENGTH = 20
 class Checkout(models.Model):
     class PaymentThrough(models.TextChoices):
         DIRECT = "DIRECT", "Direct"
-        Coldbox Store = "Coldbox Store", "Coldbox Store app"
+        coldboxstore = "coldboxstore", "coldboxstore app"
 
     class PaymentGateway(models.TextChoices):
         PAYSTACK = "PAYSTACK", "Paystack"

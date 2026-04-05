@@ -96,7 +96,7 @@ class WebhooksPaystackViewSet(ViewSet):
 
             if order.status == Order.Status.PAYMENT_PENDING:
                 order.complete_payment_pending_order(
-                    payment_through=Checkout.PaymentThrough.Coldbox Store,
+                    payment_through=Checkout.PaymentThrough.coldboxstore,
                     payment_gateway=Checkout.PaymentGateway.PAYSTACK,
                     payment_method=Checkout.PaymentMethod.CREDIT_CARD, # TODO: get the payment method from the request
                 )

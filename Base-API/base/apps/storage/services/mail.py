@@ -23,7 +23,7 @@ DEV_SKIP_MESSAGE_TEMPLATE = "Skipping sending email to {} on development environ
 def invitation_mail_service(user_type, url, phone, recipient_list, date_limit):
     subject = INVITE_SUBJECT_TEMPLATE.format(user_type)
     email_from = settings.DEFAULT_FROM_EMAIL
-    message = f'Dear user,\n\n You have invited a new {user_type} with phone number: {phone} to join your company on Coldbox Store on {date.today().strftime("%m/%d/%Y")}. In case the user has not received any invitation via SMS, please forward him/her the following invitation link: {url}. The invitation link remains valid until {date_limit}, or until a new invitation is sent.\n\nKind regards,\n\nthe Coldbox Store team'
+    message = f'Dear user,\n\n You have invited a new {user_type} with phone number: {phone} to join your company on coldboxstore on {date.today().strftime("%m/%d/%Y")}. In case the user has not received any invitation via SMS, please forward him/her the following invitation link: {url}. The invitation link remains valid until {date_limit}, or until a new invitation is sent.\n\nKind regards,\n\nthe coldboxstore team'
 
     if ENVIRONMENT == DEVELOPMENT_ENV:
         print(DEV_SKIP_MESSAGE_TEMPLATE.format(recipient_list))

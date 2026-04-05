@@ -284,7 +284,7 @@ TWILIO_NUMBER = getEnv("TWILIO_NUMBER", "")
 ##
 # Email
 ##
-DEFAULT_FROM_EMAIL = "no-reply@Coldbox Store.org"
+DEFAULT_FROM_EMAIL = "no-reply@coldboxstore.com"
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
@@ -345,7 +345,7 @@ PRICE_PREDICTION_URL_NIGERIA = (
 ##
 
 PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY") or "cH4ng3_m3"
-MARKETPLACE_Coldbox Store_EXPONENT = 0.035  # 3.5%
+MARKETPLACE_coldboxstore_EXPONENT = 0.035  # 3.5%
 MARKETPLACE_OPEN_TO_COUNTRIES = ["NG"]
 
 ##

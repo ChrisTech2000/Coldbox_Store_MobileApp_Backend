@@ -13,7 +13,7 @@ from base.apps.marketplace.services.order import (
     clear_coupon_code_service, process_coupon_code, process_order_completion,
     validate_order_payment_conditions)
 from base.apps.user.models import Company, Operator, ServiceProvider, User
-from base.settings import MARKETPLACE_Coldbox Store_EXPONENT
+from base.settings import MARKETPLACE_coldboxstore_EXPONENT
 from base.utils.currencies import quantitize_float, validate_currency
 
 # Constants
@@ -56,7 +56,7 @@ class Order(models.Model):
     cmp_last_updated_at = models.DateTimeField(_("cmp_last_updated_at"), null=True, blank=True)
     cmp_total_produce_amount = models.FloatField(_("cmp_total_produce_amount"), default=0)
     cmp_total_cooling_fees_amount = models.FloatField(_("cmp_total_cooling_fees_amount"), default=0)
-    cmp_total_Coldbox Store_amount = models.FloatField(_("cmp_total_Coldbox Store_amount"), default=0)
+    cmp_total_coldboxstore_amount = models.FloatField(_("cmp_total_coldboxstore_amount"), default=0)
     cmp_total_discount_amount = models.FloatField(_("cmp_total_discount_amount"), default=0)
     cmp_total_payment_fees_amount = models.FloatField(_("cmp_total_payment_fees_amount"), default=0)
     cmp_total_amount = models.FloatField(_("cmp_total_amount"), default=0)
@@ -210,10 +210,10 @@ class Order(models.Model):
         total_produce_amount = quantitize_float(total_produce_amount, self.currency, rounding=ROUND_HALF_UP)
         total_cooling_fees_amount = quantitize_float(total_cooling_fees_amount, self.currency, rounding=ROUND_HALF_UP)
         total_discount_amount = quantitize_float(total_discount_amount, self.currency, rounding=ROUND_HALF_UP)
-        total_Coldbox Store_amount = quantitize_float(
-            subtotal_amount * MARKETPLACE_Coldbox Store_EXPONENT, self.currency, rounding=ROUND_HALF_UP
+        total_coldboxstore_amount = quantitize_float(
+            subtotal_amount * MARKETPLACE_coldboxstore_EXPONENT, self.currency, rounding=ROUND_HALF_UP
         )
-        subtotal_amount = quantitize_float(subtotal_amount + total_Coldbox Store_amount, self.currency, rounding=ROUND_HALF_UP)
+        subtotal_amount = quantitize_float(subtotal_amount + total_coldboxstore_amount, self.currency, rounding=ROUND_HALF_UP)
 
         final_amount, total_payment_fees_amount = calculate_final_amount_and_paystack_fees_from_subtotal_amount(
             subtotal_amount
@@ -222,7 +222,7 @@ class Order(models.Model):
         self.cmp_last_updated_at = timezone.now()
         self.cmp_total_produce_amount = max(total_produce_amount, 0)
         self.cmp_total_cooling_fees_amount = max(total_cooling_fees_amount, 0)
-        self.cmp_total_Coldbox Store_amount = max(total_Coldbox Store_amount, 0)
+        self.cmp_total_coldboxstore_amount = max(total_coldboxstore_amount, 0)
         self.cmp_total_discount_amount = max(total_discount_amount, 0)
         self.cmp_total_payment_fees_amount = max(total_payment_fees_amount, 0)
         self.cmp_total_amount = max(final_amount, 0)

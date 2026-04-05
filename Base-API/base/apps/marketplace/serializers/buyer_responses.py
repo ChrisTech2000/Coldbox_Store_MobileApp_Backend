@@ -74,7 +74,7 @@ class BuyerCartSerializer(serializers.ModelSerializer):
     # Computed
     total_produce_amount = serializers.FloatField(source="cmp_total_produce_amount", read_only=True)
     total_cooling_fees_amount = serializers.FloatField(source="cmp_total_cooling_fees_amount", read_only=True)
-    total_Coldbox Store_amount = serializers.FloatField(source="cmp_total_Coldbox Store_amount", read_only=True)
+    total_coldboxstore_amount = serializers.FloatField(source="cmp_total_coldboxstore_amount", read_only=True)
     total_discount_amount = serializers.FloatField(source="cmp_total_discount_amount", read_only=True)
     total_payment_fees_amount = serializers.FloatField(source="cmp_total_payment_fees_amount", read_only=True)
     total_amount = serializers.FloatField(source="cmp_total_amount", read_only=True)
@@ -92,7 +92,7 @@ class BuyerCartSerializer(serializers.ModelSerializer):
             # Computed
             'total_produce_amount',
             'total_cooling_fees_amount',
-            'total_Coldbox Store_amount',
+            'total_coldboxstore_amount',
             'total_discount_amount',
             'total_payment_fees_amount',
             'total_amount',
@@ -115,7 +115,7 @@ class BuyerOrderSerializer(serializers.ModelSerializer):
     # Computed
     total_produce_amount = serializers.FloatField(source="cmp_total_produce_amount", read_only=True)
     total_cooling_fees_amount = serializers.FloatField(source="cmp_total_cooling_fees_amount", read_only=True)
-    total_Coldbox Store_amount = serializers.FloatField(source="cmp_total_Coldbox Store_amount", read_only=True)
+    total_coldboxstore_amount = serializers.FloatField(source="cmp_total_coldboxstore_amount", read_only=True)
     total_discount_amount = serializers.FloatField(source="cmp_total_discount_amount", read_only=True)
     total_payment_fees_amount = serializers.FloatField(source="cmp_total_payment_fees_amount", read_only=True)
     total_amount = serializers.FloatField(source="cmp_total_amount", read_only=True)
@@ -140,7 +140,7 @@ class BuyerOrderSerializer(serializers.ModelSerializer):
             # Computed
             'total_produce_amount',
             'total_cooling_fees_amount',
-            'total_Coldbox Store_amount',
+            'total_coldboxstore_amount',
             'total_discount_amount',
             'total_payment_fees_amount',
             'total_amount',
